@@ -1,8 +1,10 @@
 import {useState, useEffect} from 'react';
 import {cloneDeep} from 'lodash';
+import Shape from './Shape'
 function Editor(props) {
   const {data} = props; 
   const [list, setList] = useState(data)
+  const [curIndex, setIndex] = useState(0)
 
   useEffect(() => {
     setList(data)
@@ -44,6 +46,13 @@ function Editor(props) {
     document.addEventListener('mouseup', up)
   }
 
+  const handleContextMenu = (e) => {
+    e.stopPropagation()
+    e.preventDefault()
+
+    console.log(e, 'e')
+  }
+
   return (
     <div 
       style={{
@@ -51,18 +60,25 @@ function Editor(props) {
         width: '100%',
         height: '100%',
         position: 'relative'
-      }}>
+      }}
+      onContextMenu={handleContextMenu}
+    >
       {
         data.map((item, index) => {
           const {style, label, id} = item;
           return (
-            <div
-              style={style} 
+            <Shape 
               key={id}
-              onMouseDown={(e) => handleMouseDown(e, index)}
+              customStyle={style}
+              onClick={() => setIndex(index)}
             >
-              {label}
-            </div>
+              <div
+                style={style} 
+                onMouseDown={(e) => handleMouseDown(e, index)}
+              >
+                {label}
+              </div>
+            </Shape>
           );
         })
       }
