@@ -12,6 +12,7 @@ function Center() {
     e.preventDefault()
     e.stopPropagation()
     const index = e.dataTransfer.getData('index')
+    if (!componentList[index]) return;
     const component = cloneDeep(componentList[index])
     component.style = {
       ...component.style,
