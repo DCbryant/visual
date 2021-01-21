@@ -7,7 +7,7 @@ function Left() {
   }
   return (
     <div style={{ width: 200, border: '1px solid #ccc' }} onDragStart={handleDragStart} >
-      {componentList.map((type, index) => (
+      {componentList.map(({type}, index) => (
         <DragComponent key={type} type={type} index={index} />
       ))}
     </div>
