@@ -33,7 +33,7 @@ function Shape(props) {
         newTop = hasT ? 0 : height
       }
 
-      if (hasL && hasR) {
+      if (hasL || hasR) {
         newLeft = hasL ? 0 : width
         newTop = height / 2
       }
@@ -42,8 +42,8 @@ function Shape(props) {
     const style = {
       marignLeft: '-4',
       marginTop: '-4',
-      left: newLeft,
-      top: newTop
+      left: newLeft + left,
+      top: newTop + top
     }
 
     const defaultStyle = {
@@ -56,7 +56,6 @@ function Shape(props) {
     }
 
     const mergedStyle = {...defaultStyle, ...style}
-    console.log(mergedStyle, 'mergedStyle');
     return mergedStyle;
 
   }
