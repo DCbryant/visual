@@ -1,10 +1,13 @@
 import {useState, useEffect} from 'react';
 import {cloneDeep} from 'lodash';
 import Shape from './Shape'
+import ContextMenu from './ContextMenu'
+
 function Editor(props) {
   const {data} = props; 
   const [list, setList] = useState(data)
   const [curIndex, setIndex] = useState(0)
+  const [showMenu, setShowMenu] = useState({style: null})
 
   useEffect(() => {
     setList(data)
@@ -49,8 +52,12 @@ function Editor(props) {
   const handleContextMenu = (e) => {
     e.stopPropagation()
     e.preventDefault()
-
-    console.log(e, 'e')
+    setShowMenu({
+      style: {
+        top: e.nativeEvent.offsetY,
+        left: e.nativeEvent.offsetX
+      }
+    })
   }
 
   return (
@@ -82,6 +89,7 @@ function Editor(props) {
           );
         })
       }
+      <ContextMenu show={showMenu} hideMenu={() => setShowMenu({style: null})} />
     </div>
   );
 }
